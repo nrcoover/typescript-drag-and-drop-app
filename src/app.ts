@@ -14,7 +14,7 @@ class ProjectInput {
 			true
 		);
 		this.element = <HTMLFormElement>importedNode.firstElementChild;
-		this.attach;
+		this.attach();
 	}
 
 	private attach() {
