@@ -9,6 +9,12 @@
 		<script src="dist/app.js" defer></script>
 	</head>
 	<body>
+		<button
+			class="theme-toggle"
+			onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'"
+		>
+			Toggle Theme
+		</button>
 		<template id="project-input">
 			<form>
 				<div class="form-control">
