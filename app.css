@@ -71,7 +71,8 @@ body {
 
 #user-input:hover {
 	border-color: var(--accent1);
-	box-shadow: 0 0 20px color-mix(in srgb, var(--accent1) 40%, transparent);
+	box-shadow: 0 0 20px rgba(255, 45, 117, 0.4),
+		0 0 20px color-mix(in srgb, var(--accent1) 40%, transparent);
 }
 
 label {
@@ -110,13 +111,15 @@ button {
 	border-radius: 0.5rem;
 	padding: 0.8rem 1.5rem;
 	cursor: pointer;
+	box-shadow: 0 0 10px rgba(255, 45, 117, 0.3),
+		0 0 10px color-mix(in srgb, var(--accent1) 40%, transparent);
 	transition: transform 0.2s ease, box-shadow 0.3s ease;
-	box-shadow: 0 0 10px color-mix(in srgb, var(--accent1) 40%, transparent);
 }
 
 button:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 0 20px color-mix(in srgb, var(--accent1) 50%, transparent);
+	box-shadow: 0 0 20px rgba(255, 45, 117, 0.4),
+		0 0 20px color-mix(in srgb, var(--accent1) 50%, transparent);
 }
 
 button:active {
@@ -183,7 +186,8 @@ button:active {
 
 .projects li:hover {
 	transform: translateY(-3px);
-	box-shadow: 0 4px 15px color-mix(in srgb, var(--accent1) 30%, transparent);
+	box-shadow: 0 4px 15px rgba(255, 45, 117, 0.3),
+		0 4px 15px color-mix(in srgb, var(--accent1) 30%, transparent);
 }
 
 .projects li h2 {
@@ -219,23 +223,129 @@ button:active {
 	border-color: var(--accent-finished1);
 }
 
-/* ---------- THEME TOGGLE BUTTON ---------- */
+/* ---------- THEME TOGGLE (Unified + Polished) ---------- */
 .theme-toggle {
 	position: fixed;
 	top: 1rem;
 	right: 1rem;
-	padding: 0.6rem 1rem;
-	background: var(--panel-bg);
-	color: var(--text-color);
+	width: 2.8rem;
+	height: 2.8rem;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
 	border: 1px solid var(--border-color);
-	border-radius: 1.5rem;
+	background: var(--panel-bg);
+	backdrop-filter: blur(10px);
+	box-shadow: 0 0 10px var(--shadow-color);
 	cursor: pointer;
-	backdrop-filter: blur(6px);
-	font-size: 0.9rem;
-	box-shadow: 0 2px 6px var(--shadow-color);
-	transition: all 0.3s ease;
+	perspective: 200px;
+	transform-style: preserve-3d;
+	transition: all 0.3s ease, box-shadow 0.6s ease;
 }
 
+/* Hover lift */
 .theme-toggle:hover {
-	background: var(--input-bg);
+	transform: scale(1.05);
+}
+
+/* ICON BASE */
+.theme-toggle .icon {
+	--angle: 0deg;
+	position: relative;
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	background: var(--text-color);
+	box-shadow: 0 0 10px color-mix(in srgb, var(--accent1) 30%, transparent);
+	transform: rotate(var(--angle));
+	transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+}
+
+/* MOON CUTOUT */
+.theme-toggle .icon::before {
+	content: "";
+	position: absolute;
+	top: -0.25rem;
+	right: -0.25rem;
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	background: var(--bg-color);
+	transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* SUN RAYS */
+.theme-toggle .icon::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	box-shadow: 0 -0.9rem 0 -0.3rem var(--accent1),
+		0.9rem 0 0 -0.3rem var(--accent1), 0 0.9rem 0 -0.3rem var(--accent1),
+		-0.9rem 0 0 -0.3rem var(--accent1), 0.6rem 0.6rem 0 -0.3rem var(--accent1),
+		-0.6rem 0.6rem 0 -0.3rem var(--accent1),
+		0.6rem -0.6rem 0 -0.3rem var(--accent1),
+		-0.6rem -0.6rem 0 -0.3rem var(--accent1);
+	opacity: 0;
+	transform: scale(0.8) rotate(45deg);
+	transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* LIGHT THEME → Sun */
+html[data-theme="light"] .theme-toggle .icon {
+	--angle: 180deg;
+	background: var(--accent1);
+	box-shadow: 0 0 15px color-mix(in srgb, var(--accent1) 40%, transparent);
+}
+html[data-theme="light"] .theme-toggle .icon::before {
+	transform: translate(0.4rem, -0.4rem);
+	background: transparent;
+}
+html[data-theme="light"] .theme-toggle .icon::after {
+	opacity: 1;
+	transform: scale(1) rotate(0deg);
+}
+
+/* ---------- THEME GLOW / PULSE ---------- */
+html[data-theme="dark"] .theme-toggle {
+	box-shadow: 0 0 10px color-mix(in srgb, var(--accent2) 50%, transparent),
+		0 0 20px color-mix(in srgb, var(--accent2) 25%, transparent);
+	animation: theme-pulse-dark 3s ease-in-out infinite alternate;
+}
+html[data-theme="light"] .theme-toggle {
+	box-shadow: 0 0 10px color-mix(in srgb, var(--accent1) 60%, transparent),
+		0 0 25px color-mix(in srgb, var(--accent1) 30%, transparent);
+	animation: theme-pulse-light 3s ease-in-out infinite alternate;
+}
+
+@keyframes theme-pulse-light {
+	from {
+		box-shadow: 0 0 10px color-mix(in srgb, var(--accent1) 60%, transparent),
+			0 0 25px color-mix(in srgb, var(--accent1) 30%, transparent);
+	}
+	to {
+		box-shadow: 0 0 15px color-mix(in srgb, var(--accent1) 80%, transparent),
+			0 0 35px color-mix(in srgb, var(--accent1) 50%, transparent);
+	}
+}
+
+@keyframes theme-pulse-dark {
+	from {
+		box-shadow: 0 0 10px color-mix(in srgb, var(--accent2) 40%, transparent),
+			0 0 20px color-mix(in srgb, var(--accent2) 20%, transparent);
+	}
+	to {
+		box-shadow: 0 0 15px color-mix(in srgb, var(--accent2) 70%, transparent),
+			0 0 30px color-mix(in srgb, var(--accent2) 40%, transparent);
+	}
+}
+
+/* ---------- PARALLAX FLOAT EFFECT ---------- */
+.theme-toggle:hover .icon {
+	transform: rotate(var(--angle)) translateZ(3px) rotateY(10deg) rotateX(-10deg);
+}
+html[data-theme="dark"] .theme-toggle:hover .icon {
+	transform: rotate(var(--angle)) translateZ(3px) rotateY(-10deg) rotateX(10deg);
 }
