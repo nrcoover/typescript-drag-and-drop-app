@@ -9,6 +9,11 @@ html {
 	font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+input,
+textarea {
+	margin: 8px 0 8px;
+}
+
 /* ---------- THEME VARIABLES ---------- */
 :root {
 	--bg-color: #0d0d10;
@@ -58,9 +63,9 @@ body {
 /* ---------- FORM STYLING ---------- */
 #user-input {
 	width: 100%;
+	min-width: 30rem;
 	max-width: 40rem;
 	padding: 2rem;
-	margin-bottom: 2rem;
 	background: var(--panel-bg);
 	border: 1px solid var(--border-color);
 	backdrop-filter: blur(10px);
