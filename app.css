@@ -223,7 +223,7 @@ button:active {
 	border-color: var(--accent-finished1);
 }
 
-/* ---------- THEME TOGGLE (Unified + Polished) ---------- */
+/* ---------- THEME TOGGLE ---------- */
 .theme-toggle {
 	position: fixed;
 	top: 1rem;
@@ -293,7 +293,7 @@ button:active {
 	transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* LIGHT THEME → Sun */
+/* LIGHT THEME - Sun */
 html[data-theme="light"] .theme-toggle .icon {
 	--angle: 180deg;
 	background: var(--accent1);
