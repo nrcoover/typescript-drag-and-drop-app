@@ -10,7 +10,8 @@ html {
 }
 
 input,
-textarea {
+textarea,
+button {
 	margin: 8px 0 8px;
 }
 
